@@ -5,7 +5,7 @@
 	</head>
 
 	<body>
-		@include(partials/_nav)
+		@include("partials/_nav")
 
 		<div class="container">
 
