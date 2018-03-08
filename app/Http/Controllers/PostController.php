@@ -58,7 +58,7 @@ class PostController extends Controller
 		Session::flash("success", "The Blog Post was Successfully Saved!");
         
         //redirect to another page
-        return redirect()->route("posts/show", $post->id);
+        return redirect()->route("posts.show", $post->id);
     }
 
     /**
@@ -70,7 +70,7 @@ class PostController extends Controller
     public function show($id)
     {
     	$post = Post::find($id);
-        return view("posts/show")->withPost($post);
+        return view("posts.show")->withPost($post);
     }
 
     /**
@@ -127,6 +127,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+		
+		$post->delete();
+		
+		Session::flash("success", "The post was seuccessfully delted.");
+		return redirect()->route("posts.index");
     }
 }
