@@ -13,27 +13,18 @@
 		
 		<div class="row">
 			<div class="col-md-8">
-				<div class="post">
-					<h3>Post Title</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut condimentum tortor purus. Aenean ut lacus vitae ipsum consequat vulputate. Nullam dictum elit elit, sed aliquam elit tincidunt a. Nam a arcu condimentum, mattis nunc vel, luctus tortor. Nullam dictum turpis eget ipsum efficitur tincidunt. Fusce mattis leo massa, id porta dui consequat quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p>
-					<a href="#" class="btn btn-primary">Read more</a>
-				</div>
 				
-				<hr />
+				@foreach($posts as $post)
 				
-				<div class="post">
-					<h3>Post Title</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut condimentum tortor purus. Aenean ut lacus vitae ipsum consequat vulputate. Nullam dictum elit elit, sed aliquam elit tincidunt a. Nam a arcu condimentum, mattis nunc vel, luctus tortor. Nullam dictum turpis eget ipsum efficitur tincidunt. Fusce mattis leo massa, id porta dui consequat quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p>
-					<a href="#" class="btn btn-primary">Read more</a>
-				</div>
-				
-				<hr />
-				
-				<div class="post">
-					<h3>Post Title</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut condimentum tortor purus. Aenean ut lacus vitae ipsum consequat vulputate. Nullam dictum elit elit, sed aliquam elit tincidunt a. Nam a arcu condimentum, mattis nunc vel, luctus tortor. Nullam dictum turpis eget ipsum efficitur tincidunt. Fusce mattis leo massa, id porta dui consequat quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p>
-					<a href="#" class="btn btn-primary">Read more</a>
-				</div>
+					<div class="post">
+						<h3>{{ $post->title }}</h3>
+						<p>{{ substr($post->body, 0, 300) }}{{ strlen($post->body) > 300 ? "..." : "" }}</p>
+						<a href="{{ url("blog/" . $post->slug) }}" class="btn btn-primary">Read more</a>
+					</div>
+					
+					<hr />
+					
+				@endforeach
 			</div>
 			
 			<div class="col-md-3 col-md-offset-1">
