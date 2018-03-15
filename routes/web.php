@@ -11,6 +11,16 @@
 |
 */
 
+//Authentication routes
+
+
+//Route::get("auth/login", "Auth\LoginController@showLoginForm");
+//Route::post("auth/login", "Auth\LoginController@postLogin");
+Route::get("logout", "Auth\LoginController@logout");
+
+//registration routes
+//Route::get("auth/register", "Auth\RegisterController@showRegistrationForm");
+//Route::post("auth/register", "Auth\RegisterController@postRegister");
 
 
 Route::get("blog/{slug}", array(
@@ -30,3 +40,7 @@ Route::get("about", "PageController@getAbout");
 Route::get("/", "PageController@getIndex");
 
 Route::resource("posts", "PostController");
+
+Auth::routes();
+
+//Route::get('/', 'HomeController@index');
