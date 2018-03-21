@@ -11,7 +11,6 @@
 			
 			@include("partials/_messages")
 			
-			{{ Auth::check() ? "Logged In" : "" }}
 			
 			@yield("content")
 
