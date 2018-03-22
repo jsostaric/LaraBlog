@@ -23,6 +23,8 @@ Route::get("logout", "Auth\LoginController@logout");
 //Route::post("auth/register", "Auth\RegisterController@postRegister");
 
 
+Route::resource("categories", "CategoryController", array("except" => array("create")));
+
 Route::get("blog/{slug}", array(
 			"as" => "blog.single",
 			"uses" => "BlogController@getSingle"
