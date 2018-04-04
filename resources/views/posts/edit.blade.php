@@ -2,6 +2,11 @@
 
 @section("title", "| Edit Post")
 
+@section("stylesheets")
+	{!! Html::style("css/select2.min.css") !!}
+@endsection
+
+
 @section("content")
 	
 	<div class="row">
@@ -13,8 +18,11 @@
 			{{ Form::label("slug", "Slug:", array("class" => "form-spacing-top")) }}
 			{{ Form::text("slug", null, array("class" => "form-control")) }}
 			
-			{{ Form::label("category_id", "Catgory:", array("class" => "form-spacing-top")) }}
+			{{ Form::label("category_id", "Category:", array("class" => "form-spacing-top")) }}
 			{{ Form::select("category_id", $categories, null, array("class" => "form-control ")) }}
+			
+			{{ Form::label("tags", "Tags:", array("class" => "form-spacing-top")) }}
+			{{ Form::select("tags[]", $tags, null, array("class" => "form-control select2-multi", "multiple" => "multiple")) }}
 	
 			{{ Form::label("body", "Body:", array("class" => "form-spacing-top")) }}
 			{{ Form::textarea("body", null, array("class" => "form-control")) }}
@@ -50,3 +58,12 @@
 	
 
 @stop
+
+@section("scripts")
+	{!! Html::script("js/select2.min.js") !!}
+	
+	<script type="text/javascript">
+		$(".select2-multi").select2();
+		$(".select2-multi").select2().val({!! json_encode($post->tags()->allRelatedIds()) !!}).trigger("change");
+	</script>
+@endsection

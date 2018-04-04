@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use App\Category;
 use Session;
 
@@ -35,7 +36,8 @@ class PostController extends Controller
     public function create()
     {
     	$categories = Category::all();
-        return view("posts/create")->withCategories($categories);
+		$tags = Tag::all();
+        return view("posts/create")->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -46,6 +48,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+    	
         //validate the data
         $this->validate($request, array(
 			"title" 		=> "required|max:255",
@@ -63,6 +66,9 @@ class PostController extends Controller
 		$post->body 		= $request->body;
 		
 		$post->save();
+		
+		//assocciate tags with post
+		$post->tags()->sync($request->tags, false);
 		
 		Session::flash("success", "The Blog Post was Successfully Saved!");
         
@@ -97,11 +103,19 @@ class PostController extends Controller
 		foreach($categories as $category){
 			$cats[$category->id] = $category->name;
 		}
-			
 		
-        
+		$tags = Tag::pluck('name', 'id');
+			/*
+		$tags = Tag::all();
+		$tags2 = array();
+		
+		foreach ($tags as $tag) {
+			$tag2[$tag->id] = $tag->name;
+			 
+		}
+        */
         //return the view and pass in the var we previously created
-        return view("posts/edit")->withPost($post)->withCategories($cats);
+        return view("posts/edit")->withPost($post)->withCategories($cats)->withTags($tags);
     }
 
     /**
@@ -140,6 +154,8 @@ class PostController extends Controller
 		$post->body = $request->input("body");
 		
 		$post->save();
+		
+		$post->tags()->sync($request->tags);
         
         //set flash data with flash success messg
         Session::flash("success", "This post was successfully saved.");
@@ -161,7 +177,7 @@ class PostController extends Controller
 		
 		$post->delete();
 		
-		Session::flash("success", "The post was seuccessfully delted.");
+		Session::flash("success", "The post was successfully deleted.");
 		return redirect()->route("posts.index");
     }
 }

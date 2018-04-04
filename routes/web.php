@@ -11,6 +11,8 @@
 |
 */
 
+
+
 //Authentication routes
 
 
@@ -22,8 +24,9 @@ Route::get("logout", "Auth\LoginController@logout");
 //Route::get("auth/register", "Auth\RegisterController@showRegistrationForm");
 //Route::post("auth/register", "Auth\RegisterController@postRegister");
 
-
+//Categories
 Route::resource("categories", "CategoryController", array("except" => array("create")));
+Route::resource("tags", "TagController", array("except" => array("create")));
 
 Route::get("blog/{slug}", array(
 			"as" => "blog.single",
