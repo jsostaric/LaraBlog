@@ -39,6 +39,7 @@ Route::get("blog", array(
 ));
 
 Route::get("contact", "PageController@getContact");
+Route::post("contact", "PageController@postContact");
 
 Route::get("about", "PageController@getAbout");
 
