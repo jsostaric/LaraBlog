@@ -28,6 +28,13 @@ Route::get("logout", "Auth\LoginController@logout");
 Route::resource("categories", "CategoryController", array("except" => array("create")));
 Route::resource("tags", "TagController", array("except" => array("create")));
 
+// Comments
+Route::post("comments/{post_id}", array(
+	"uses" => "CommentsController@store",
+	"as" => "comments.store"
+));
+
+
 Route::get("blog/{slug}", array(
 			"as" => "blog.single",
 			"uses" => "BlogController@getSingle"
